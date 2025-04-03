@@ -1,0 +1,160 @@
+html {
+    overflow: hidden;
+    height: 100%;
+    background: url('../images/signin/background.jpeg');
+    background-size: cover;
+}
+
+body {
+    overflow: auto;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.godaddy_container {
+    font-family: 'Lato', sans-serif;
+    cursor: default;
+}
+
+.godaddy_header {
+    padding: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.godaddy_header_logo {
+    padding-left: 50px;
+}
+
+.godaddy_header_contact_us {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 300;
+    padding-right: 50px;
+}
+
+.godaddy_header_contact_us:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.chevron-down-custom-icon {
+    padding-left: 10px;
+    font-weight: 200;
+}
+
+.godaddy_content {
+    padding: 40px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.godaddy_content-sign-in-form {
+    background-color: white;
+    padding: 40px 48px 40px 48px;
+    height: 482px;
+    width: 346px;
+    border: 1px solid #d4dbe0;
+    border-radius: 4px;
+    font-family: 'Roboto Slab', serif;
+}
+
+.form_header {
+    font-size: 2.2806973457336426rem;
+    font-weight: 500;
+    text-align: center;
+}
+
+.form_sign_up_link {
+    margin-top: 15px;
+    text-align: center;
+    font-weight: 300;
+}
+
+.form_sign_up_link .text-2 {
+    color: rgb(9, 117, 122);
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.form_body {
+    margin-top: 20px;
+}
+
+.input-group {
+    margin-top: 20px;
+}
+
+.label {
+    margin-bottom: 5px;
+}
+
+.input-item {
+    min-height: 30px;
+    width: 320px;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    color: #2b2b2b;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: .0625rem solid #d4dbe0;
+    vertical-align: middle;
+    border-radius: 0;
+    box-shadow: none;
+    transition: .3s all ease-in-out;
+}
+
+.submit {
+    margin-top: 35px;
+    min-height: 50px;
+    width: 100%;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    background-clip: padding-box;
+    border: .0625rem solid #d4dbe0;
+    vertical-align: middle;
+    border-radius: 0;
+    box-shadow: none;
+    transition: background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    background-color: black;
+    color: white;
+}
+
+.keep-me-signed-in {
+    font-weight: 300;
+}
+
+.checkbox-keep-signed-in {
+    background-color: green;
+}
+
+.form_footer {
+    padding-top: 20px;
+    font-weight: 300;
+}
+
+.form_footer .text-2{
+    color: rgb(9, 117, 122);
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.godaddy_footer {
+    padding: 30px 50px 30px 50px;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 300;
+    color: white;
+}
+
+.privacy-policy {
+    color: rgb(9, 117, 122);
+    text-decoration: underline;
+}
