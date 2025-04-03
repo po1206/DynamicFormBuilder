@@ -8,10 +8,10 @@
           else.</p>
         <button type="button" class="btn btn-outline-dark feature__btn">See Email Plans</button>
       </div>
-      <img src="{{ asset('/assets/images/home/product_1.png')}}" alt="" class="feature__image">
+      <img src="{{ secure_asset('/assets/images/home/product_1.png')}}" alt="" class="feature__image">
     </div>
     <div class="feature__content">
-      <img src="{{ asset('/assets/images/home/product_2.png')}}" alt="" class="feature__image">
+      <img src="{{ secure_asset('/assets/images/home/product_2.png')}}" alt="" class="feature__image">
       <div class="feature__details">
         <p class="feture__info">SSL Security</p>
         <h2 class="feature__title">Clone the forms with data</h2>
@@ -30,10 +30,10 @@
           Share the forms with people inside or outside of your organization and collect data.</p>
         <button type="button" class="btn btn-outline-dark feature__btn">See Hosting Plans</button>
       </div>
-      <img src="{{ asset('/assets/images/home/product_3.png')}}" alt="" class="feature__image">
+      <img src="{{ secure_asset('/assets/images/home/product_3.png')}}" alt="" class="feature__image">
     </div>
     <div class="feature__content">
-      <img src="{{ asset('/assets/images/home/product_4.png')}}" alt="" class="feature__image">
+      <img src="{{ secure_asset('/assets/images/home/product_4.png')}}" alt="" class="feature__image">
       <div class="feature__details">
         <p class="feture__info">Office 365</p>
         <h2 class="feature__title">
@@ -47,7 +47,7 @@
     <h3 class="testimonial__heading">Testimonials</h3>
     <div class="testimonial">
       <div class="testimonial__item">
-        <img src="{{ asset('/assets/images/home/person1.jpeg') }}" alt="person1" class="testimonial__image">
+        <img src="{{ secure_asset('/assets/images/home/person1.jpeg') }}" alt="person1" class="testimonial__image">
         <span class="testimonial__title">Jordan Munson</span>
         <span class="testimonial__subtitle">WISTIA</span>
         <blockquote class="testimonial__description">
@@ -55,7 +55,7 @@
         </blockquote>
       </div>
       <div class="testimonial__item">
-        <img src="{{ asset('/assets/images/home/person2.jpeg') }}" alt="person2" class="testimonial__image">
+        <img src="{{ secure_asset('/assets/images/home/person2.jpeg') }}" alt="person2" class="testimonial__image">
         <span class="testimonial__title">Gary Martin</span>
         <span class="testimonial__subtitle">Winie Library</span>
         <blockquote class="testimonial__description">
@@ -63,7 +63,7 @@
         </blockquote>
       </div>
       <div class="testimonial__item">
-        <img src="{{ asset('/assets/images/home/person3.jpeg') }}" alt="person3" class="testimonial__image">
+        <img src="{{ secure_asset('/assets/images/home/person3.jpeg') }}" alt="person3" class="testimonial__image">
         <span class="testimonial__title">Tina Roth Eisenburg</span>
         <span class="testimonial__subtitle">Tattly</span>
         <blockquote class="testimonial__description">
@@ -73,7 +73,7 @@
     </div>
 
     <div class="feature__content guides">
-      <img src="{{ asset('/assets/images/home/Guidance.png')}}" alt="" class="feature__image">
+      <img src="{{ secure_asset('/assets/images/home/Guidance.png')}}" alt="" class="feature__image">
       <div class="feature__details guides__details">
         <p class="guides__info">GoDaddy guides</p>
         <h2 class="guides__title">Why go with GoDaddy?

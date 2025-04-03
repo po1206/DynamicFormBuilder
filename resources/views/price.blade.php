@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('title', 'Dashboard')
 @section('custom_css')
-<link rel="stylesheet" href="{{asset('/assets/css/home.css')}}">
+<link rel="stylesheet" href="{{secure_asset('/assets/css/home.css')}}">
 @include('layouts.head')
 @endsection
 @section('content')
@@ -15,7 +15,7 @@
           <span id="price">US$5</span> per user/per month for all features. Cancel anytime.
         </h2>
       </div>
-      <img class="bck__img -mt-2" src="{{asset('/assets/images/price/house.png')}}" alt="background">
+      <img class="bck__img -mt-2" src="{{secure_asset('/assets/images/price/house.png')}}" alt="background">
     </div>
     @include('layouts.feature')
     @include('layouts.footer')

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('title', 'Dashboard')
 @section('custom_css')
-<link rel="stylesheet" href="{{URL::asset('/assets/css/home.css')}}">
+<link rel="stylesheet" href="{{URL::secure_asset('/assets/css/home.css')}}">
 @include('layouts.head')
 @endsection
 @section('content')
@@ -20,7 +20,7 @@
         </div>
       </div>
 
-      <img class="bck__img" src="{{ URL::asset('/assets/images/home/bck-img.png') }}" alt="background">
+      <img class="bck__img" src="{{ URL::secure_asset('/assets/images/home/bck-img.png') }}" alt="background">
     </div>
     @include('layouts.feature')
     @include('layouts.footer')
