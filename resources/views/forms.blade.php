@@ -1,8 +1,8 @@
 @extends('layouts.app')
 @section('custom_css')
-@include('layouts.head')
 <link rel="stylesheet" type="text/css" media="screen" href="{{('/vendor/jqGrid/js/themes/redmond/jquery-ui.custom.css')}}" />
 <link rel="stylesheet" type="text/css" media="screen" href="{{('/vendor/jqGrid/js/jqgrid/css/ui.jqgrid.css')}}" />
+<link href="http://cdn.jsdelivr.net/gh/wenzhixin/multiple-select@1.2.1/multiple-select.css" rel="stylesheet" />
 <style>
 #customToolbar {
     padding: 5px;
@@ -24,7 +24,7 @@
 @endsection
 @section('content')
   
-    <div class="ps-1 pe-1 w-100 h-100" id="container">
+    <div class="ps-1 pe-1 w-100 h-100" id="container" style="height: 100%; width: 100%;">
         {{-- <div id="customToolbar">
             <button id="openDialog">Open Form Dialog</button>
         </div> --}}
@@ -56,7 +56,7 @@
 <script src="{{('/vendor/jqGrid/js/jqgrid/js/i18n/grid.locale-en.js')}}" type="text/javascript"></script>
 <script src="{{('/vendor/jqGrid/js/jqgrid/js/jquery.jqGrid.min.js')}}" type="text/javascript"></script>
 <script src="{{('/vendor/jqGrid/js/themes/jquery-ui.custom.min.js')}}" type="text/javascript"></script>	
-<link href="//cdn.jsdelivr.net/gh/wenzhixin/multiple-select@1.2.1/multiple-select.css" rel="stylesheet" />
+
 <script src="//cdn.jsdelivr.net/gh/wenzhixin/multiple-select@1.2.1/multiple-select.js"></script>	
 
 <script type="text/javascript"> 
