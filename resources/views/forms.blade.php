@@ -112,7 +112,7 @@
                                     id: 'AutoComplete',
                                     source: function(request, response){
                                         this.xhr = $.ajax({
-                                            url: "{{url('/forms/getForms')}}",
+                                            url: "{{('/forms/getForms')}}",
                                             data: request,
                                             dataType: "json",
                                             success: function( data ) {
