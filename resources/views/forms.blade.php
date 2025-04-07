@@ -2,7 +2,12 @@
 @section('custom_css')
 <link rel="stylesheet" type="text/css" media="screen" href="{{('/vendor/jqGrid/js/themes/redmond/jquery-ui.custom.css')}}" />
 <link rel="stylesheet" type="text/css" media="screen" href="{{('/vendor/jqGrid/js/jqgrid/css/ui.jqgrid.css')}}" />
+<script src="{{('/vendor/jqGrid/js//jquery.min.js')}}" type="text/javascript"></script>
+<script src="{{('/vendor/jqGrid/js/jqgrid/js/i18n/grid.locale-en.js')}}" type="text/javascript"></script>
+<script src="{{('/vendor/jqGrid/js/jqgrid/js/jquery.jqGrid.min.js')}}" type="text/javascript"></script>
+<script src="{{('/vendor/jqGrid/js/themes/jquery-ui.custom.min.js')}}" type="text/javascript"></script>	
 <link href="http://cdn.jsdelivr.net/gh/wenzhixin/multiple-select@1.2.1/multiple-select.css" rel="stylesheet" />
+<script src="//cdn.jsdelivr.net/gh/wenzhixin/multiple-select@1.2.1/multiple-select.js"></script>	
 <style>
 #customToolbar {
     padding: 5px;
@@ -52,12 +57,7 @@
 
 @endsection
 @section('custom_js')
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script src="{{('/vendor/jqGrid/js/jqgrid/js/i18n/grid.locale-en.js')}}" type="text/javascript"></script>
-<script src="{{('/vendor/jqGrid/js/jqgrid/js/jquery.jqGrid.min.js')}}" type="text/javascript"></script>
-<script src="{{('/vendor/jqGrid/js/themes/jquery-ui.custom.min.js')}}" type="text/javascript"></script>	
 
-<script src="//cdn.jsdelivr.net/gh/wenzhixin/multiple-select@1.2.1/multiple-select.js"></script>	
 
 <script type="text/javascript"> 
     $(document).ready(function () {
@@ -128,7 +128,7 @@
                                         $(element).data('selected-id', ui.item.id); // Save the selected id
                                     },
                                 });
-                            }, 100);
+                            }, 700);
                         },
                     }
                 },
@@ -192,18 +192,11 @@
             //     }
             // }
         });
-        // $('#jqGrid').jqGrid('filterToolbar');
-        $('#jqGrid').jqGrid("inlineNav", {
-            add: true,
-            cancel: true,
-        });
+        $('#jqGrid').jqGrid('filterToolbar');
         $('#jqGrid').navGrid('#jqGridPager',
-        // the buttons to appear on the toolbar of the grid
         { edit: true, add: true, del: true, search: false, refresh: false, view: false, position: "left", cloneToTop: true },
-        // options for the Edit Dialog
-        settingEditDialog,
-        // options for the Add Dialog
-        {
+        settingEditDialog,         // options for the Edit Dialog
+        {   // options for the Add Dialog
             closeAfterAdd: true,
             recreateForm: true,
             beforeShowForm: settingCenterDialog,
@@ -231,7 +224,7 @@
                 return 'Error: ' + data.responseText
             }
         });
-     });
+    });
      
     //  $("#formDialog").dialog({
     //     autoOpen: false,

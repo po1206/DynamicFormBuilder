@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('form_definition_id')->constrained('form_definitions')->onDelete('cascade');
             $table->string('name')->comment('Internal field name (e.g., for table column)');
-            $table->string('label')->comment('User-facing label');
             $table->string('field_type')->comment('e.g., text, number, date, textarea, select');
             $table->json('validation_rules')->nullable()->comment('Laravel validation rules array');
             $table->text('error_message')->nullable()->comment('Custom validation error message');

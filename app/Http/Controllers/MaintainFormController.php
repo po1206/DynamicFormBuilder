@@ -85,13 +85,13 @@ class MaintainFormController extends Controller
         $form_definition_name = $request->input('form_definition_name');
         if ($request->input('oper') == 'add') {
             if (is_numeric($form_definition_name) && (int)$form_definition_name == $form_definition_name) {
+                $formField->form_definition_id = (int)$form_definition_name;
+            } else {
                 // Create new FormDefinition
                 $formDefintion = new FormDefinition();
                 $formDefintion->name = $form_definition_name;
                 $formDefintion->save();
                 $formField->form_definition_id = $formDefintion->id;
-            } else {
-                $formField->form_definition_id = (int)$form_definition_name;
             }
         } 
         $formField->name = $request->input('name');
