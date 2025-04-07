@@ -100,7 +100,7 @@
             }
         };
         $("#jqGrid").jqGrid({
-            url: "{{url('/forms')}}",
+            url: "{{route('forms')}}",
             mtype: "GET",
             datatype: "json",
             colModel: [
@@ -166,7 +166,7 @@
             caption: "Maintain Form",
             multiselect: true,
             pager: "#jqGridPager",
-            editurl: '{{ url("/forms") }}',
+            editurl: '{{ route("forms") }}',
             autofilter : true,
             toppager: true,
             headertitles: true,
