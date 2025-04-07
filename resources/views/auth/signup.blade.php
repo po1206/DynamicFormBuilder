@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('custom_css')
-<link rel="stylesheet" href="{{secure_asset('/assets/fonts/material-design-iconic-font/css/material-design-iconic-font.css')}}">
-<link rel="stylesheet" href="{{secure_asset('/assets/css/register.css')}}">
+<link rel="stylesheet" href="{{('/assets/fonts/material-design-iconic-font/css/material-design-iconic-font.css')}}">
+<link rel="stylesheet" href="{{('/assets/css/register.css')}}">
 @endsection
 @section('content')
 <div class="wrapper">
@@ -12,7 +12,7 @@
         <section>
             <div class="inner">
                 <div class="image-holder">
-                    <img src="{{secure_asset('/assets/images/register/form-wizard-1.jpg')}}" alt="">
+                    <img src="{{('/assets/images/register/form-wizard-1.jpg')}}" alt="">
                 </div>
                 <div class="form-content" >
                     <div class="form-header">
@@ -67,7 +67,7 @@
         <section>
             <div class="inner">
                 <div class="image-holder">
-                    <img src="{{secure_asset('/assets/images/register/form-wizard-2.jpg')}}" alt="">
+                    <img src="{{('/assets/images/register/form-wizard-2.jpg')}}" alt="">
                 </div>
                 <div class="form-content">
                     <div class="form-header">
@@ -111,7 +111,7 @@
         <section>
             <div class="inner">
                 <div class="image-holder">
-                    <img src="{{secure_asset('/assets/images/register/form-wizard-3.jpg')}}" alt="">
+                    <img src="/assets/images/register/form-wizard-3.jpg" alt="">
                 </div>
                 <div class="form-content">
                     <div class="form-header">
@@ -136,7 +136,7 @@
 </div>
 @endsection
 @section('custom_js')
-<script src="{{secure_asset('/assets/js/jquery-3.3.1.min.js')}}"></script>
-<script src="{{secure_asset('/assets/js/jquery.steps.js')}}"></script>
-<script src="{{secure_asset('/assets/js/main.js')}}"></script>
+<script src="{{('/assets/js/jquery-3.3.1.min.js')}}"></script>
+<script src="{{('/assets/js/jquery.steps.js')}}"></script>
+<script src="{{('/assets/js/main.js')}}"></script>
 @endsection
