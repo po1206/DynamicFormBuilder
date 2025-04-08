@@ -7,9 +7,9 @@
         <title>@yield('title')</title>
         <style>
             body, html {
-                margin: 0;
+                margin: 2px;
                 padding: 0;
-                height: 100%;
+                height: calc(100% - 4px);
             }
         </style>
         @yield('custom_css')

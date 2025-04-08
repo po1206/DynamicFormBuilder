@@ -2,18 +2,9 @@
 @section('custom_css')
 <link rel="stylesheet" type="text/css" media="screen" href="{{('/vendor/jqGrid/js/themes/redmond/jquery-ui.custom.css')}}" />
 <link rel="stylesheet" type="text/css" media="screen" href="{{('/vendor/jqGrid/js/jqgrid/css/ui.jqgrid.css')}}" />
-<script src="{{('/vendor/jqGrid/js//jquery.min.js')}}" type="text/javascript"></script>
-<script src="{{('/vendor/jqGrid/js/jqgrid/js/i18n/grid.locale-en.js')}}" type="text/javascript"></script>
-<script src="{{('/vendor/jqGrid/js/jqgrid/js/jquery.jqGrid.min.js')}}" type="text/javascript"></script>
-<script src="{{('/vendor/jqGrid/js/themes/jquery-ui.custom.min.js')}}" type="text/javascript"></script>	
-<link href="http://cdn.jsdelivr.net/gh/wenzhixin/multiple-select@1.2.1/multiple-select.css" rel="stylesheet" />
-<script src="//cdn.jsdelivr.net/gh/wenzhixin/multiple-select@1.2.1/multiple-select.js"></script>	
+<link href="https://cdn.jsdelivr.net/gh/wenzhixin/multiple-select@1.2.1/multiple-select.css" rel="stylesheet" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/css/select2.min.css" rel="stylesheet" />
 <style>
-#customToolbar {
-    padding: 5px;
-    border-bottom: 1px solid #ccc;
-    display: none; /* Hide it by default until inserted */
-}
 .ui-autocomplete{
     z-index: 1000;
 }
@@ -24,15 +15,11 @@
     border: 1px solid #ccc;     /* Lighter border */
     cursor: not-allowed;        /* Change cursor to indicate it's disabled */
 }
-
 </style>
 @endsection
 @section('content')
   
     <div class="ps-1 pe-1 w-100 h-100" id="container" style="height: 100%; width: 100%;">
-        {{-- <div id="customToolbar">
-            <button id="openDialog">Open Form Dialog</button>
-        </div> --}}
         <table id="jqGrid" class=""></table>
         <div id="jqGridPager"></div>    
     </div>
@@ -57,12 +44,28 @@
 
 @endsection
 @section('custom_js')
-
-
+<script src="{{('/vendor/jqGrid/js//jquery.min.js')}}" type="text/javascript"></script>
+<script src="{{('/vendor/jqGrid/js/jqgrid/js/i18n/grid.locale-en.js')}}" type="text/javascript"></script>
+<script src="{{('/vendor/jqGrid/js/jqgrid/js/jquery.jqGrid.min.js')}}" type="text/javascript"></script>
+<script src="{{('/vendor/jqGrid/js/themes/jquery-ui.custom.min.js')}}" type="text/javascript"></script>	
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/js/select2.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/wenzhixin/multiple-select@1.2.1/multiple-select.js"></script>	
 <script type="text/javascript"> 
+    function resizeGrid() {
+        var newWidth = $('#container').width() - 4; // Adjust as needed
+        var newHeight = $('#container').height() - 40 - 40 - 40 - 30 - 40 - 10; // Adjust based on your layout (header/footer/etc)
+
+        $("#jqGrid").jqGrid('setGridWidth', newWidth);
+        $("#jqGrid").jqGrid('setGridHeight', newHeight);
+    }
+    $(window).on('resize', function () {
+        resizeGrid();
+    });
+   
     $(document).ready(function () {
         $.jgrid.nav.addtext = "Add";
         $.jgrid.nav.edittext = "Edit";
+        
         let csrfToken = $('meta[name="csrf-token"]').attr('content');
         const settingCenterDialog = ($form) => {
             var $dialog = $form.closest('.ui-jqdialog');
@@ -84,8 +87,7 @@
         const settingEditDialog = {
             editCaption: "The Edit Dialog",
             recreateForm: true,
-            //checkOnUpdate : true,
-            //checkOnSubmit : true,
+
             beforeShowForm: function ($form) {
                 settingCenterDialog($form);
                 $($form[0]).find('input[name="form_definition_name"]').prop('disabled', true);
@@ -100,7 +102,7 @@
             }
         };
         $("#jqGrid").jqGrid({
-            url: "/forms",
+            url: "/forms/maintain",
             mtype: "GET",
             datatype: "json",
             colModel: [
@@ -112,7 +114,7 @@
                                     id: 'AutoComplete',
                                     source: function(request, response){
                                         this.xhr = $.ajax({
-                                            url: "{{('/forms/getForms')}}",
+                                            url: '/forms/maintain/getForms',
                                             data: request,
                                             dataType: "json",
                                             success: function( data ) {
@@ -143,19 +145,18 @@
                     search: false,
                     formatter: function(cellvalue, options, rowObject) {
                         // Custom HTML template for Actions (you can customize this as needed)
-                        
-                        var editButton = '<a class="ui-custom-icon ui-icon ui-icon-pencil" title="" href="javascript:void(0);" onclick="jQuery(this).dblclick();"></a>';
-                        // var deleteButton = '<a class="ui-custom-icon ui-icon ui-icon-trash" title="Delete this row" href="javascript:void(0);" onclick="jQuery(\'#jqGrid\').resetSelection(); jQuery(\'#jqGrid\').setSelection(\''+cl+'\'); jQuery(\'#del_list_accounts\').click(); "></a>';
+                        var editButton = '<a class="ui-custom-icon ui-icon ui-icon-pencil" title="Edit this row" href="javascript:void(0);" onclick="jQuery(this).dblclick();"></a>';
+                        var deleteButton = '<a class="ui-custom-icon ui-icon ui-icon-trash" title="Delete this row" href="javascript:void(0);" onclick="jQuery(\'#jqGrid\').resetSelection(); jQuery(\'#jqGrid\').setSelection(' + rowObject.id + '); jQuery(\'#del_jqGrid\').click(); "></a>';
                         
                         // Return the HTML template that includes the action buttons
-                        return editButton ;
+                        return editButton + ' '+ deleteButton ;
                     },
                 },
             ],
             sortname: 'form_definition_id',
             sortorder: 'asc',
             width: '100%',
-            height: $('#container').height() - 40 - 40 - 40 - 30 - 10,
+            height: $('#container').height() - 40 - 40 - 40 - 30 - 40 - 10,
             autowidth: true,
 			viewrecords: true,
             rowNum: 20,
@@ -184,69 +185,40 @@
                 // This will trigger the editing mode when you double-click on a row
                 $("#jqGrid").jqGrid('editGridRow', rowid, settingEditDialog);
             },
-            // toolbar: [true,"top"],
-            // loadComplete: function () {
-            //     // Make sure the toolbar exists only once
-            //     if (!$('#t_jqGrid .custom-toolbar').length) {
-            //         $('#t_jqGrid').append($('#customToolbar').show()); // Append manually
-            //     }
-            // }
         });
         $('#jqGrid').jqGrid('filterToolbar');
         $('#jqGrid').navGrid('#jqGridPager',
-        { edit: true, add: true, del: true, search: false, refresh: false, view: false, position: "left", cloneToTop: true },
-        settingEditDialog,         // options for the Edit Dialog
-        {   // options for the Add Dialog
-            closeAfterAdd: true,
-            recreateForm: true,
-            beforeShowForm: settingCenterDialog,
-            beforeSubmit : function( postdata, form , oper) {
-                var $input = $("input[name='form_definition_name']");
-                var selectedId = $input.data('selected-id');
-                if (selectedId) {
-                    postdata.form_definition_name = selectedId; // Replace value with ID
+            { edit: true, add: true, del: true, search: false, refresh: false, view: false, position: "left", cloneToTop: true },
+            settingEditDialog,         // options for the Edit Dialog
+            {   // options for the Add Dialog
+                closeAfterAdd: true,
+                recreateForm: true,
+                beforeShowForm: settingCenterDialog,
+                beforeSubmit : function( postdata, form , oper) {
+                    var $input = $("input[name='form_definition_name']");
+                    var selectedId = $input.data('selected-id');
+                    if (selectedId) {
+                        postdata.form_definition_name = selectedId; // Replace value with ID
+                    }
+                    postdata._token = csrfToken;
+                    return [true,''];
+                },
+                errorTextFormat: function (data) {
+                    return 'Error: ' + data.responseText
                 }
-                postdata._token = csrfToken;
-                return [true,''];
             },
-            errorTextFormat: function (data) {
-                return 'Error: ' + data.responseText
-            }
-        },
-        // options for the Delete Dailog
-        {
-            beforeShowForm: settingCenterDialog,
-            beforeSubmit : function( postdata, form , oper) {
-                postdata._token = csrfToken;
-                return [true,''];
-            },
-            errorTextFormat: function (data) {
-                return 'Error: ' + data.responseText
-            }
+            // options for the Delete Dailog
+            {
+                beforeShowForm: settingCenterDialog,
+                onclickSubmit: function(params, postdata) {
+                    return {
+                        _token: csrfToken,
+                    };
+                },
+                errorTextFormat: function (data) {
+                    return 'Error: ' + data.responseText
+                }
         });
     });
-     
-    //  $("#formDialog").dialog({
-    //     autoOpen: false,
-    //     modal: true,
-    //     buttons: {
-    //     "Submit": function () {
-    //         const data = {
-    //             firstName: $("#firstName").val(),
-    //             lastName: $("#lastName").val(),
-    //             email: $("#email").val()
-    //         };
-    //         console.log("Form Data:", data); // Handle your form logic here
-    //         $(this).dialog("close");
-    //     },
-    //     "Cancel": function () {
-    //         $(this).dialog("close");
-    //     }
-    //     }
-    // });
-    // // Open the dialog when button is clicked
-    // $("#openDialog").click(function () {
-    //     $("#formDialog").dialog("open");
-    // });
     </script>
 @endsection

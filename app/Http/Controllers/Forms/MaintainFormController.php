@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Forms;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -43,6 +43,10 @@ class MaintainFormController extends Controller
 
 
             // Apply ordering
+            if ($sidx == "form_definition_name"){
+                $sidx = "form_definition_id";
+            }
+
             $query->orderBy($sidx, $sord);
 
             $count = $query->count();
@@ -68,7 +72,7 @@ class MaintainFormController extends Controller
             ]);
 
         }
-        return view('forms');
+        return view('forms.maintain');
     }
 
     // jqGrid sends POST for create and edit (with oper=add/edit)
@@ -78,6 +82,10 @@ class MaintainFormController extends Controller
             $formField = new FormField();
         } elseif ($request->input('oper') === 'edit') {
             $formField = FormField::findOrFail($request->input('id'));
+        } elseif ($request->input('oper') === 'del') {
+            $id = $request->input('id');
+            FormField::destroy($id);
+            return response()->json(['success' => true]);
         } else {
             return response()->json(['error' => 'Invalid oper'], 400);
         }
@@ -88,12 +96,21 @@ class MaintainFormController extends Controller
                 $formField->form_definition_id = (int)$form_definition_name;
             } else {
                 // Create new FormDefinition
-                $formDefintion = new FormDefinition();
-                $formDefintion->name = $form_definition_name;
-                $formDefintion->save();
-                $formField->form_definition_id = $formDefintion->id;
+                $formDefinition = FormDefinition::where('name', $form_definition_name)->first();
+                if (is_null($formDefinition)){
+                    $formDefinition = new FormDefinition();
+                    $formDefinition->name = $form_definition_name;
+                    $formDefinition->save();    
+                }
+                $formField->form_definition_id = $formDefinition->id;
             }
         } 
+        $duplicate = FormField::where('form_definition_id', $formField->form_definition_id)->where('name', $request->input('name'))->first();
+        if (is_null($duplicate) == false) {
+            if ($request->input('oper') == 'add' || $duplicate->id != $formField->id) {
+                return response()->json(['error' => 'Duplicate Field'], 400);
+            }
+        }
         $formField->name = $request->input('name');
         $formField->field_type = $request->input('field_type');
         $formField->validation_rules = $request->input('validation_rules');
@@ -102,13 +119,6 @@ class MaintainFormController extends Controller
         return response()->json(['success' => true]);
     }
 
-    // jqGrid sends POST with oper=del for deletion
-    public function destroy(Request $request, $id = null)
-    {
-        $id = $id ?? $request->input('id');
-        FormField::destroy($id);
-        return response()->json(['success' => true]);
-    }
 
     // (Optional) not used by jqGrid but included for REST completeness
     public function show($id, Request $request) {
@@ -129,8 +139,9 @@ class MaintainFormController extends Controller
             return response()->json($forms);
         }
     }
+
     public function create() {}
     public function edit($id) {}
     public function update(Request $request, $id) {}
-
+    public function destroy(Request $request, $id = null) {}
 }
