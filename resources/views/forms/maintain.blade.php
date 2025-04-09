@@ -1,9 +1,48 @@
 @extends('forms.layout')
 @section('title', 'Maintain Form')
 @section('content')
+<input type="file" id="excelFileInput" accept=".xlsx,.xls" style="display:none;" />
 @endsection
 @section('custom_js')
-<script type="text/javascript">     
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script type="text/javascript">
+
+    document.getElementById('excelFileInput').addEventListener('change', function (e) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            const data = new Uint8Array(e.target.result);
+            const workbook = XLSX.read(data, { type: 'array' });
+            const worksheet = workbook.Sheets[workbook.SheetNames[0]];
+            const jsonData = XLSX.utils.sheet_to_json(worksheet);
+
+            // Clear existing and add new data
+            $("#jqGrid").jqGrid('clearGridData');
+            for (let i = 0; i < jsonData.length; i++) {
+                $("#jqGrid").jqGrid('addRowData', i + 1, {
+                    "form_definition_name": jsonData[i].Form,
+                    "name": jsonData[i].Field,
+                    "field_type": jsonData[i].Type,
+                    "validation_rules": jsonData[i].Validation,
+                    "error_message": jsonData[i].Error,
+                });
+            }
+        };
+        reader.readAsArrayBuffer(e.target.files[0]);
+    });
+
+    function exportToExcel() {
+        const data = $("#jqGrid").jqGrid('getRowData').map(row => ({
+            Form: row.form_definition_name,
+            Field: row.name,
+            Type: row.field_type,
+            Validation: row.validation_rules,
+            Error: row.error_message,
+        }));
+        var ws = XLSX.utils.json_to_sheet(data);
+        var wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+        XLSX.writeFile(wb, "jqGridData.xlsx");
+    }
     $(document).ready(function () {
         $.jgrid.nav.addtext = "Add";
         $.jgrid.nav.edittext = "Edit";
@@ -142,6 +181,20 @@
                 errorTextFormat: function (data) {
                     return 'Error: ' + data.responseText
                 }
+        });
+
+        $("#jqGrid").navButtonAdd('#jqGridPager', {
+            caption: "Export",
+            buttonicon: "ui-icon-disk",
+            onClickButton: exportToExcel,
+            position: "last"
+        });
+
+        $("#jqGrid").navButtonAdd('#jqGridPager', {
+            caption: "Import",
+            buttonicon: "ui-icon-folder-open",
+            onClickButton: () => document.getElementById("excelFileInput").click(),
+            position: "last"
         });
     });
 </script>
