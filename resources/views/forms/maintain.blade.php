@@ -1,89 +1,13 @@
-@extends('layouts.app')
-@section('custom_css')
-<link rel="stylesheet" type="text/css" media="screen" href="{{('/vendor/jqGrid/js/themes/redmond/jquery-ui.custom.css')}}" />
-<link rel="stylesheet" type="text/css" media="screen" href="{{('/vendor/jqGrid/js/jqgrid/css/ui.jqgrid.css')}}" />
-<link href="https://cdn.jsdelivr.net/gh/wenzhixin/multiple-select@1.2.1/multiple-select.css" rel="stylesheet" />
-<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/css/select2.min.css" rel="stylesheet" />
-<style>
-.ui-autocomplete{
-    z-index: 1000;
-}
-
-.ui-jqdialog input:disabled {
-    background-color: #f0f0f0;  /* Light gray background */
-    color: #aaa;                /* Light gray text */
-    border: 1px solid #ccc;     /* Lighter border */
-    cursor: not-allowed;        /* Change cursor to indicate it's disabled */
-}
-</style>
-@endsection
+@extends('forms.layout')
+@section('title', 'Maintain Form')
 @section('content')
-  
-    <div class="ps-1 pe-1 w-100 h-100" id="container" style="height: 100%; width: 100%;">
-        <table id="jqGrid" class=""></table>
-        <div id="jqGridPager"></div>    
-    </div>
-
-<!-- Hidden Dialog -->
-<div id="formDialog" title="Enter Information"  style="display:none;">
-    <form id="infoForm" class="FormGrid ui-jqdialog-content ui-widget-content">
-        <div class="row">
-            <label for="firstName" class="col-md-4">First Name</label>
-            <input type="text" id="firstName" name="firstName" class="col-md-8">    
-        </div>
-        <div class="row">
-            <label for="lastName" class="col-md-4">Last Name</label>
-            <input type="text" id="lastName" name="lastName" class="col-md-8">
-        </div>
-        <div class="row">
-            <label for="email" class="col-md-4">Email</label>
-            <input type="email" id="email" name="email" class="col-md-8">
-        </div>
-    </form>
-</div>
-
 @endsection
 @section('custom_js')
-<script src="{{('/vendor/jqGrid/js//jquery.min.js')}}" type="text/javascript"></script>
-<script src="{{('/vendor/jqGrid/js/jqgrid/js/i18n/grid.locale-en.js')}}" type="text/javascript"></script>
-<script src="{{('/vendor/jqGrid/js/jqgrid/js/jquery.jqGrid.min.js')}}" type="text/javascript"></script>
-<script src="{{('/vendor/jqGrid/js/themes/jquery-ui.custom.min.js')}}" type="text/javascript"></script>	
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/js/select2.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/wenzhixin/multiple-select@1.2.1/multiple-select.js"></script>	
-<script type="text/javascript"> 
-    function resizeGrid() {
-        var newWidth = $('#container').width() - 4; // Adjust as needed
-        var newHeight = $('#container').height() - 40 - 40 - 40 - 30 - 40 - 10; // Adjust based on your layout (header/footer/etc)
-
-        $("#jqGrid").jqGrid('setGridWidth', newWidth);
-        $("#jqGrid").jqGrid('setGridHeight', newHeight);
-    }
-    $(window).on('resize', function () {
-        resizeGrid();
-    });
-   
+<script type="text/javascript">     
     $(document).ready(function () {
         $.jgrid.nav.addtext = "Add";
         $.jgrid.nav.edittext = "Edit";
         
-        let csrfToken = $('meta[name="csrf-token"]').attr('content');
-        const settingCenterDialog = ($form) => {
-            var $dialog = $form.closest('.ui-jqdialog');
-            var windowWidth = $(window).width();
-            var windowHeight = $(window).height();
-            var dialogWidth = $dialog.width();
-            var dialogHeight = $dialog.height();
-            
-            // Calculate the left and top position to center the dialog
-            var left = (windowWidth - dialogWidth) / 2;
-            var top = (windowHeight - dialogHeight) / 2;
-
-            // Set the dialog position
-            $dialog.css({
-                'left': left + 'px',
-                'top': top + 'px'
-            });
-        };
         const settingEditDialog = {
             editCaption: "The Edit Dialog",
             recreateForm: true,
@@ -167,7 +91,7 @@
             caption: "Maintain Form",
             multiselect: true,
             pager: "#jqGridPager",
-            editurl: '/forms',
+            editurl: '/forms/maintain',
             autofilter : true,
             toppager: true,
             headertitles: true,
@@ -220,5 +144,5 @@
                 }
         });
     });
-    </script>
+</script>
 @endsection
